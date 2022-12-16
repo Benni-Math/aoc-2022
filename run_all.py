@@ -8,6 +8,24 @@ labelled by language.
 """
 import subprocess
 import os
+import time
+from io import TextIOWrapper
+
+def run_one(cmd: list[str], cwd: str, err_file: TextIOWrapper):
+    """Runs a single AOC directory"""
+    lang_name = cwd.capitalize()
+    print(f'Running {lang_name} code...')
+    start = time.time()
+    output_filename = f'outputs/{cwd}.txt'
+    with open(output_filename, 'w', encoding='utf-8') as out_file:
+        subprocess.Popen(
+            cmd,
+            cwd=cwd,
+            stdout=out_file,
+            stderr=err_file,
+        )
+    print(f'{lang_name} took {time.time()-start} seconds\n')
+
 
 def run_all():
     """Runs all of the AOC code"""
@@ -21,36 +39,19 @@ def run_all():
 
     py_cwd = 'python'
     py_cmd = ['python', 'main.py']
-    with open('outputs/python.txt', 'w', encoding='utf-8') as out_file:
-        subprocess.Popen(
-            py_cmd,
-            cwd=py_cwd,
-            stdout=out_file,
-            stderr=err_file,
-        )
+    run_one(py_cmd, py_cwd, err_file)
 
     ts_cwd = 'typescript'
     ts_cmd = ['npm', 'run', 'start']
-    with open('outputs/typescript.txt', 'w', encoding='utf-8') as out_file:
-        subprocess.Popen(
-            ts_cmd,
-            cwd=ts_cwd,
-            stdout=out_file,
-            stderr=err_file,
-        )
+    run_one(ts_cmd, ts_cwd, err_file)
 
     rs_cwd = 'rust'
     rs_cmd = ['cargo', 'run', '-r']
-    with open('outputs/rust.txt', 'w', encoding='utf-8') as out_file:
-        subprocess.Popen(
-            rs_cmd,
-            cwd=rs_cwd,
-            stdout=out_file,
-            stderr=err_file,
-        )
+    run_one(rs_cmd, rs_cwd, err_file)
 
     err_file.close()
 
+    print('Check the outputs/ directory for the results!')
+
 if __name__ == '__main__':
     run_all()
-
