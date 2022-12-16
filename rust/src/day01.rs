@@ -1,16 +1,15 @@
 use std::fs::File;
+use std::path::PathBuf;
 use std::io::{ BufReader, BufRead };
 
-
-const INPUT_FILENAME: &str = "../inputs/day01-input.txt";
 
 struct SumMax {
     max: u64,
     sum: u64,
 }
 
-pub fn day01() -> std::io::Result<()> {
-    let file = File::open(INPUT_FILENAME)?;
+pub fn day01_pt1(filename: &PathBuf) -> std::io::Result<u64> {
+    let file = File::open(filename)?;
     let reader = BufReader::new(file);
 
     let answer = reader
@@ -35,8 +34,5 @@ pub fn day01() -> std::io::Result<()> {
         )
         .max;
 
-    println!("Day 1 Part 1: {}", answer);
-
-    
-    Ok(())
+    Ok(answer)
 }
