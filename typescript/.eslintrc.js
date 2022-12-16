@@ -21,13 +21,14 @@ const config = {
         '@typescript-eslint/lines-between-class-members': 'off',
         '@typescript-eslint/no-unused-expressions': 'off',
         'no-restricted-syntax': 'off',
+        'no-console': 'off',
       },
     },
   ],
   rules: {
     'arrow-body-style': [
       'warn',
-      'always',
+      'as-needed',
     ],
     'react/prop-types': 'off',
     'react/function-component-definition': [

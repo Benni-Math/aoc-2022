@@ -2,15 +2,18 @@
 import fs from 'fs';
 import readline from 'readline';
 
-// Import input file information
-import INPUT_FILE from './types/InputFile';
+// Import types
+import InputFile from '../types/InputFile';
+
+// Import constants
+import INPUT_FILE from '../constants/INPUT_FILE';
 
 /**
- * Day 1 of Advent of Code 2022!
+ * Day 1 Pt1 of Advent of Code 2022!
  * @author Benedikt Arnarsson
  */
-const day01 = async () => {
-  const inputFile = fs.createReadStream(INPUT_FILE.DAY_1);
+const day01pt1 = async (filename: InputFile) => {
+  const inputFile = fs.createReadStream(filename);
 
   const lineReader = readline.createInterface({
     input: inputFile,
@@ -28,10 +31,15 @@ const day01 = async () => {
     }
   }
 
-  // eslint-disable-next-line no-console
-  console.log(max);
+  return max;
 };
 
 if (require.main === module) {
-  day01();
+  day01pt1(INPUT_FILE.DAY_1).then((answer) => {
+    console.log(`Day 1, pt1: ${answer}`);
+  });
 }
+
+const day01 = [day01pt1];
+
+export default day01;

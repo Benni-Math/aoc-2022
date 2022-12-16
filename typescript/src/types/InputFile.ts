@@ -1,15 +1,13 @@
+// Import types
 import ObjectValues from './ObjectValues';
 
-const INPUT_DIR = '../inputs/';
+// Import constants
+import INPUT_FILE from '../constants/INPUT_FILE';
 
 /**
- * Enum-style type and object to keep track of input files.
+ * Enum style type to keep track of input files.
  * @author Benedikt Arnarsson
  */
-const INPUT_FILE = {
-  DAY_1: `${INPUT_DIR}day01-input.txt`,
-} as const;
+type InputFile = ObjectValues<typeof INPUT_FILE>;
 
-export type InputFile = ObjectValues<typeof INPUT_FILE>;
-
-export default INPUT_FILE;
+export default InputFile;

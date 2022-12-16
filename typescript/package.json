@@ -4,6 +4,7 @@
   "description": "Advent of Code 2022 in TypeScript",
   "main": "src/index.ts",
   "scripts": {
+    "start": "ts-node ./src/index.ts",
     "day-01": "ts-node ./src/day01"
   },
   "author": "Ben",
