@@ -1,4 +1,13 @@
+# Rust
 target/
+
+# Typescript
 node_modules/
+
+# Python
 # https://github.com/github/gitignore/blob/main/Python.gitignore
 __pycache__/
+
+# AOC in/out
+inputs/
+outputs/
