@@ -2,14 +2,14 @@ use std::fs::File;
 use std::io::{ BufReader, BufRead };
 
 
-const INPUT_FILENAME: &str = "../../inputs/day01-input.txt";
+const INPUT_FILENAME: &str = "../inputs/day01-input.txt";
 
 struct SumMax {
     max: u64,
     sum: u64,
 }
 
-fn main() -> std::io::Result<()> {
+pub fn day01() -> std::io::Result<()> {
     let file = File::open(INPUT_FILENAME)?;
     let reader = BufReader::new(file);
 
@@ -35,7 +35,7 @@ fn main() -> std::io::Result<()> {
         )
         .max;
 
-    println!("Answer: {}", answer);
+    println!("Day 1 Part 1: {}", answer);
 
     
     Ok(())
