@@ -1,7 +1,9 @@
-import day1 from './day01';
+import day01 from './day01';
+import day02 from './day02';
 
 const days = [
-  day1,
+  day01,
+  day02,
 ];
 
 export default days;

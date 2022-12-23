@@ -6,6 +6,7 @@ import INPUT_DIR from './INPUT_DIR';
  */
 const INPUT_FILE = {
   DAY_1: `${INPUT_DIR}/01.txt`,
+  DAY_2: `${INPUT_DIR}/02.txt`,
 } as const;
 
 export default INPUT_FILE;

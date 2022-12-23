@@ -5,7 +5,8 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "ts-node ./src/index.ts",
-    "day-01": "ts-node ./src/day01"
+    "day01": "ts-node ./src/days/day01",
+    "day02": "ts-node ./src/days/day02"
   },
   "author": "Ben",
   "license": "ISC",

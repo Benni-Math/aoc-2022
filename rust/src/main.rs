@@ -19,7 +19,8 @@ fn main() -> std::io::Result<()> {
                     if let Ok(answer) = soln_func(&filename) {
                         println!("Day {}, pt{}: {}", day+1, part+1, answer);
                     }
-                })
+                });
+            println!();
         });
 
     Ok(())

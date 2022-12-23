@@ -16,6 +16,7 @@ def main():
             answer = soln_func(input_filename)
 
             print(f'Day {day+1}, pt{part+1}: {answer}')
+        print()
 
 if __name__ == '__main__':
     main()
