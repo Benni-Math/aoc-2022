@@ -1,14 +1,16 @@
 use std::collections::VecDeque;
-use std::fs::{File, create_dir};
+use std::fs::File;
 use std::path::PathBuf;
 use std::io::{ BufReader, BufRead };
 
 use crate::util::collect_array;
 
 type CrateRow = Vec<Option<char>>;
+type CrateStack = Vec<char>;
 
 struct CrateStacks {
-    stacks: VecDeque<CrateRow>,
+    // rows: VecDeque<CrateRow>,
+    stacks: Vec<CrateStack>,
     crane_moves: Box<dyn Iterator<Item = String>>,
 }
 
@@ -20,17 +22,17 @@ struct CraneMove {
 
 impl CrateStacks {
     pub fn new(mut lines: Box<dyn Iterator<Item = String>>) -> Self {
-        let crate_stack_rows = CrateStacks::parse_crates(&mut lines);
-        CrateStacks { stacks: crate_stack_rows, crane_moves: lines }
+        let crate_stacks = CrateStacks::parse_crate_stacks(&mut lines);
+        CrateStacks { stacks: crate_stacks, crane_moves: lines }
     }
 
-    fn parse_crates(lines: &mut dyn Iterator<Item = String>) -> VecDeque<CrateRow> {
-        let mut crate_stack_rows = VecDeque::new();
+    fn parse_crate_stacks(lines: &mut dyn Iterator<Item = String>) -> Vec<CrateStack> {
+        let mut crate_stack_rows: VecDeque<CrateRow> = VecDeque::new();
         for row in lines {
             if row.is_empty() { break; }
             let crate_row = row
                 .chars()
-                .collect::<Vec<char>>();
+                .collect::<CrateStack>();
             let crate_names = crate_row
                 .chunks(4)
                 .map(|name| {
@@ -39,77 +41,107 @@ impl CrateStacks {
                         .find(|c| { c.is_alphabetic() })
                         .map(|c| { c.to_owned() })
                 });
-            crate_stack_rows.push_back(crate_names.collect())
+            crate_stack_rows.push_front(crate_names.collect())
         }
-        crate_stack_rows.pop_back();
-        crate_stack_rows
+        crate_stack_rows.pop_front();
+
+
+       Self::rows_to_stacks(crate_stack_rows)
     }
 
-    pub fn exec_all_crane(self) -> String {
+    fn rows_to_stacks(rows: VecDeque<CrateRow>) -> Vec<CrateStack> {
+        assert!(!rows.is_empty());
+
+        (0..rows[0].len())
+            .map(|stack_index| {
+                let mut stack = Vec::new();
+                rows.iter()
+                    .for_each(|row| {
+                        if let Some(crate_name) = row[stack_index] {
+                            stack.push(crate_name);
+                        }
+                    });
+                stack
+            })
+            .collect()
+    }
+
+    pub fn exec_all_crane_9000(self) -> String {
         let mut new_crate_stacks = self.stacks;
         for line in self.crane_moves {
             let crane_move = CrateStacks::parse_crane_move(&line);
-            new_crate_stacks = CrateStacks::exec_crane(new_crate_stacks, crane_move);
+            new_crate_stacks = CrateStacks::exec_crane_9000(new_crate_stacks, crane_move);
         }
 
-        // FIXME: only get the last row, not the top of each stack
-        // could do get_top_of_col, but might want to change CrateStacks::new()
-        // to use a stack for each row
-        // This would also simplify the structure of move_one
-        // Maybe just have something that changes VecDeque<CrateRow> into
-        // the set of stacks
+        // FIXME: Possibly get the answer in a separate function?
         let mut answer = String::new();
-        for col in 0..new_crate_stacks[0].len() {
-            if let Some(row) = CrateStacks::get_top_of_col(&new_crate_stacks, col) {
-                answer.push(new_crate_stacks[row][col].unwrap())
-            }
-        }
 
-        println!("Crates: {:?}", new_crate_stacks);
+        // Kind of messy since this mutates the final crate_stack...
+        new_crate_stacks
+            .iter_mut()
+            .for_each(|stack| {
+                answer.push(stack.pop().unwrap())
+            });
+
 
         answer
-        // if let Some(last_row) =  new_crate_stacks.pop_front() {
-        //     last_row.iter().filter_map(|c| { c.as_ref() }).collect()
-        // } else { panic!("Empty crate stacks: {:?}", new_crate_stacks) }
-    } 
+    }
 
-    fn exec_crane(crate_rows: VecDeque<CrateRow>, crane_move: CraneMove) -> VecDeque<CrateRow> {
-        let mut new_crate_rows = crate_rows;
+    pub fn exec_all_crane_9001(self) -> String {
+        let mut new_crate_stacks = self.stacks;
+        for line in self.crane_moves {
+            let crane_move = CrateStacks::parse_crane_move(&line);
+            new_crate_stacks = CrateStacks::exec_crane_9001(new_crate_stacks, crane_move);
+        }
+
+        // FIXME: Possibly get the answer in a separate function?
+        let mut answer = String::new();
+
+        // Kind of messy since this mutates the final crate_stack...
+        new_crate_stacks
+            .iter_mut()
+            .for_each(|stack| {
+                answer.push(stack.pop().unwrap())
+            });
+
+
+        answer
+    }
+
+    fn exec_crane_9000(crate_rows: Vec<CrateStack>, crane_move: CraneMove) -> Vec<CrateStack> {
+        let mut new_crate_stacks = crate_rows;
         for _ in 0..crane_move.num {
-            new_crate_rows = CrateStacks::move_one(new_crate_rows, crane_move.from-1, crane_move.to-1);
+            new_crate_stacks = CrateStacks::move_one(new_crate_stacks, crane_move.from-1, crane_move.to-1);
         }
 
-        new_crate_rows
+        new_crate_stacks
     }
 
-    fn move_one(crate_rows: VecDeque<CrateRow>, from: usize, to: usize) -> VecDeque<CrateRow> {
-        let mut new_crate_rows = crate_rows;
+    fn move_one(crate_rows: Vec<CrateStack>, from: usize, to: usize) ->  Vec<CrateStack> {
+        let mut new_crate_stacks = crate_rows;
         
-        let Some(from_row) = CrateStacks::get_top_of_col(&new_crate_rows, from) 
-            else { return new_crate_rows; };
+        let crate_to_move = new_crate_stacks[from].pop().unwrap();
+        new_crate_stacks[to].push(crate_to_move);
+        
+        new_crate_stacks
+    }
 
-        let to_row = CrateStacks::get_top_of_col(&new_crate_rows, to);
+    fn exec_crane_9001(crate_rows: Vec<CrateStack>, crane_move: CraneMove) -> Vec<CrateStack> {
+        let mut new_crate_stacks = crate_rows;
 
-        match to_row {
-            Some(i) if i == new_crate_rows.len()-1 => {
-                let len = new_crate_rows[0].len();
-                let mut none_vec = vec![None; len];
-                none_vec[to] = new_crate_rows[from_row][from];
-                new_crate_rows.push_front(none_vec);
-            },
-            Some(i) => {
-                new_crate_rows[i + 1][to] = new_crate_rows[from_row][from];
-            }
-            None => {
-                new_crate_rows[0][to] = new_crate_rows[from_row][from];
-            }
+        let mut moved_crates = Vec::new();
+
+        for _ in 0..crane_move.num {
+            let crate_to_move = new_crate_stacks[crane_move.from-1].pop().unwrap();
+            moved_crates.push(crate_to_move);
         }
-        
-        new_crate_rows
-    }
 
-    fn get_top_of_col(crate_rows: &VecDeque<CrateRow>, col: usize) -> Option<usize> {
-        (0..crate_rows.len()).rev().find(|&i| crate_rows[i][col].is_some())
+        for _ in 0..crane_move.num {
+            let crate_to_move = moved_crates.pop().unwrap();
+            new_crate_stacks[crane_move.to-1].push(crate_to_move);
+        }
+
+        new_crate_stacks
     }
 
     fn parse_crane_move(s: &str) -> CraneMove {
@@ -136,7 +168,7 @@ pub fn pt1(filename: &PathBuf) -> std::io::Result<String> {
         .flatten();
     
     let crate_stacks = CrateStacks::new(Box::new(lines));
-    let answer = crate_stacks.exec_all_crane();
+    let answer = crate_stacks.exec_all_crane_9000();
     Ok(answer)
 }
 
@@ -144,9 +176,11 @@ pub fn pt2(filename: &PathBuf) -> std::io::Result<String> {
     let file = File::open(filename)?;
     let reader = BufReader::new(file);
 
-    let answer = reader
+    let lines = reader
         .lines()
         .flatten();
-
-    Ok("Not implemented".to_string())
+    
+    let crate_stacks = CrateStacks::new(Box::new(lines));
+    let answer = crate_stacks.exec_all_crane_9001();
+    Ok(answer)
 }
