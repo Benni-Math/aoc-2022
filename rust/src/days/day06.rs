@@ -1,25 +1,43 @@
-use std::fs::File;
+use std::collections::HashSet;
 use std::path::PathBuf;
-use std::io::{ BufReader, BufRead };
+
+fn test_marker(slice: &[u8]) -> bool {
+    let mut uniq = HashSet::new();
+    slice.iter().all(move |x| uniq.insert(x))
+}
 
 pub fn pt1(filename: &PathBuf) -> std::io::Result<String> {
-    let file = File::open(filename)?;
-    let reader = BufReader::new(file);
+    let file = std::fs::read(filename)?;
 
-    let answer = reader
-        .lines()
-        .flatten();
+    let marker_search = &file[..]
+        .windows(4)
+        .enumerate()
+        .find(|(_, marker)| {
+            test_marker(marker)
+        });
 
-    Ok("Not implemented".to_string())
+    if let Some((answer, _)) = marker_search
+        {
+            return Ok(format!("{}", answer+4));
+        }
+
+    Ok("Could not find marker :(".to_string())
 }
 
 pub fn pt2(filename: &PathBuf) -> std::io::Result<String> {
-    let file = File::open(filename)?;
-    let reader = BufReader::new(file);
+    let file = std::fs::read(filename)?;
 
-    let answer = reader
-        .lines()
-        .flatten();
+    let marker_search = &file[..]
+        .windows(14)
+        .enumerate()
+        .find(|(_, marker)| {
+            test_marker(marker)
+        });
 
-    Ok("Not implemented".to_string())
+    if let Some((answer, _)) = marker_search
+        {
+            return Ok(format!("{}", answer+14));
+        }
+
+    Ok("Could not find marker :(".to_string())
 }
