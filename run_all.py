@@ -15,7 +15,7 @@ def run_one(cmd: list[str], cwd: str, err_file: TextIOWrapper):
     """Runs a single AOC directory"""
     lang_name = cwd.capitalize()
     print(f'Running {lang_name} code...')
-    start = time.time()
+    start = time.perf_counter()
     output_filename = f'outputs/{cwd}.txt'
     with open(output_filename, 'w', encoding='utf-8') as out_file:
         subprocess.Popen(
@@ -24,7 +24,7 @@ def run_one(cmd: list[str], cwd: str, err_file: TextIOWrapper):
             stdout=out_file,
             stderr=err_file,
         )
-    print(f'{lang_name} took {time.time()-start} seconds\n')
+    print(f'{lang_name} took {time.perf_counter()-start} seconds\n')
 
 
 def run_all():
@@ -48,6 +48,10 @@ def run_all():
     rs_cwd = 'rust'
     rs_cmd = ['cargo', 'run', '-r']
     run_one(rs_cmd, rs_cwd, err_file)
+
+    ex_cwd = 'elixir'
+    ex_cmd = ['mix', 'run', 'aoc.exs']
+    run_one(ex_cmd, ex_cwd, err_file)
 
     err_file.close()
 
