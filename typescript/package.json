@@ -2,11 +2,11 @@
   "name": "ts-aoc-2022",
   "version": "0.0.0",
   "description": "Advent of Code 2022 in TypeScript",
-  "main": "src/index.ts",
+  "main": "src/aoc.ts",
   "scripts": {
-    "start": "ts-node ./src/index.ts",
-    "day01": "ts-node ./src/days/day01",
-    "day02": "ts-node ./src/days/day02"
+    "build": "rm -rf ./target/ && tsc --project ./tsconfig.json",
+    "start.release": "node target/aoc",
+    "start.dev": "ts-node ./src/aoc.ts"
   },
   "author": "Ben",
   "license": "ISC",

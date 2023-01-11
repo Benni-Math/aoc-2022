@@ -1,9 +1,13 @@
+// Import helper
+import inputFiles from '../helpers/inputFiles';
+
 // Import types
 import InputFile from '../types/InputFile';
 
-// Import constants
-import INPUT_FILE from './INPUT_FILE';
-
-const INPUT_FILES: InputFile[] = Object.values(INPUT_FILE);
+/**
+ * Array containing all of the input file names.
+ * @author Benedikt Arnarsson
+ */
+const INPUT_FILES: InputFile[] = inputFiles();
 
 export default INPUT_FILES;

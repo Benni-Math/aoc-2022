@@ -1,44 +1,70 @@
 // Import NodeJS helpers
 import fs from 'fs';
-import readline from 'readline';
 
 // Import types
 import InputFile from '../types/InputFile';
 
-// Import constants
-import INPUT_FILE from '../constants/INPUT_FILE';
+// ------------------ Types ------------------ //
 
-/**
- * Day 1 Pt1 of Advent of Code 2022!
- * @author Benedikt Arnarsson
- */
-const pt1 = async (filename: InputFile) => {
-  const inputFile = fs.createReadStream(filename);
-
-  const lineReader = readline.createInterface({
-    input: inputFile,
-    crlfDelay: Infinity,
-  });
-
-  const sum = 0;
-
-  return sum;
+type Range = {
+  low: number,
+  high: number,
 };
 
-const pt2 = async (filename: InputFile) => 0;
+// ----------------- Helpers ----------------- //
+/**
+ * Parse a string into a Range.
+ * @author Benedikt Arnarsson
+ * @param str Must be of the form `${number}-${number}`
+ */
+const parseRange = (str: `${number}-${number}`): Range => {
+  const [low, high] = str
+    .split('-')
+    .map((s) => Number.parseInt(s, 10));
 
-if (require.main === module) {
-  pt1(INPUT_FILE.DAY_2)
-    .then((answer) => {
-      console.log(`Day 2, pt1: ${answer}`);
-    });
+  return { low, high };
+};
 
-  pt2(INPUT_FILE.DAY_2)
-    .then((answer) => {
-      console.log(`Day 2, pt2: ${answer}`);
-    });
-}
+const rangeContainment = (ranges: Range[]): boolean => (
+  (ranges[0].low <= ranges[1].low && ranges[1].high <= ranges[0].high)
+  || (ranges[1].low <= ranges[0].low && ranges[0].high <= ranges[1].high)
+);
 
-const day02 = [pt1, pt2];
+const rangeOverlap = (ranges: Range[]): boolean => (
+  (ranges[0].low <= ranges[1].low && ranges[1].low <= ranges[0].high)
+  || (ranges[1].low <= ranges[0].low && ranges[0].low <= ranges[1].high)
+);
 
-export default day02;
+// ------------- Main Functions -------------- //
+
+/**
+ * Day 4 Pt1 of Advent of Code 2022!
+ * Camp Cleanup: How many elves' cleanup areas are contained in each other?
+ * @author Benedikt Arnarsson
+ */
+const pt1 = async (filename: InputFile) => (
+  fs.promises
+    .readFile(filename)
+    .then((buf) => buf.toString())
+    .then((str) => str.trim().split('\n'))
+    .then((lines) => lines.map((line) => line.split(',').map(parseRange)))
+    .then((ranges) => ranges.filter(rangeContainment).length)
+);
+
+/**
+ * Day 4 Pt2 of Advent of Code 2022!
+ * Camp Cleanup: How many elves' cleanup areas overlap?
+ * @author Benedikt Arnarsson
+ */
+const pt2 = async (filename: InputFile) => (
+  fs.promises
+    .readFile(filename)
+    .then((buf) => buf.toString())
+    .then((str) => str.trim().split('\n'))
+    .then((lines) => lines.map((line) => line.split(',').map(parseRange)))
+    .then((ranges) => ranges.filter(rangeOverlap).length)
+);
+
+const day04 = [pt1, pt2];
+
+export default day04;

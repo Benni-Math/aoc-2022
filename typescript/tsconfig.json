@@ -4,8 +4,12 @@
     "esModuleInterop": true,
     "noImplicitAny": true,
     "declaration": true,
-    "target": "es6",
+    "target": "ES2022",
+    "outDir": "./target"
   },
+  "include": [
+    "./src"
+  ],
   "ts-node": {
     "files": true
   }

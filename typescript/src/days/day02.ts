@@ -1,50 +1,71 @@
 // Import NodeJS helpers
 import fs from 'fs';
-import readline from 'readline';
 
 // Import types
 import InputFile from '../types/InputFile';
 
-// Import constants
-import INPUT_FILE from '../constants/INPUT_FILE';
+// ----------------- Helpers ----------------- //
 
-// Import helpers
-import RockPaperScissors from '../types/RockPaperScissors';
+const wrongRPSScore = (game: string): number => {
+  if (game === 'A X') return 4;
+  if (game === 'A Y') return 8;
+  if (game === 'A Z') return 3;
+  if (game === 'B X') return 1;
+  if (game === 'B Y') return 5;
+  if (game === 'B Z') return 9;
+  if (game === 'C X') return 7;
+  if (game === 'C Y') return 2;
+  if (game === 'C Z') return 6;
+  return 0;
+};
+
+const rightRPSScore = (game: string): number => {
+  if (game === 'A X') return 3;
+  if (game === 'A Y') return 4;
+  if (game === 'A Z') return 8;
+  if (game === 'B X') return 1;
+  if (game === 'B Y') return 5;
+  if (game === 'B Z') return 9;
+  if (game === 'C X') return 2;
+  if (game === 'C Y') return 6;
+  if (game === 'C Z') return 7;
+  return 0;
+};
+
+// ------------- Main Functions -------------- //
 
 /**
- * Day 1 Pt1 of Advent of Code 2022!
+ * Day 2 Pt1 of Advent of Code 2022!
+ * Scoring rock-paper-scissors games, the wrong way.
  * @author Benedikt Arnarsson
  */
 const pt1 = async (filename: InputFile) => {
-  const inputFile = fs.createReadStream(filename);
+  const inputFile = await fs.promises.readFile(filename);
 
-  const lineReader = readline.createInterface({
-    input: inputFile,
-    crlfDelay: Infinity,
-  });
+  const totalScore = inputFile
+    .toString()
+    .trim()
+    .split('\n')
+    .reduce((sum, game) => wrongRPSScore(game) + sum, 0);
 
-  let sum = 0;
-  for await (const line of lineReader) {
-    const game = RockPaperScissors.fromString(line as RockPaperScissors.GameStr);
-    sum += RockPaperScissors.score(game);
-  }
-
-  return sum;
+  return totalScore;
 };
 
-const pt2 = async (filename: InputFile) => 0;
+/**
+ * Day 2 Pt2 of Advent of Code 2022!
+ * Scoring rock-paper-scissors games, the right way.
+ * @author Benedikt Arnarsson
+ */
+const pt2 = async (filename: InputFile) => {
+  const inputFile = await fs.promises.readFile(filename);
 
-if (require.main === module) {
-  pt1(INPUT_FILE.DAY_2)
-    .then((answer) => {
-      console.log(`Day 2, pt1: ${answer}`);
-    });
+  const totalScore = inputFile
+    .toString()
+    .split('\n')
+    .reduce((sum, game) => rightRPSScore(game) + sum, 0);
 
-  pt2(INPUT_FILE.DAY_2)
-    .then((answer) => {
-      console.log(`Day 2, pt2: ${answer}`);
-    });
-}
+  return totalScore;
+};
 
 const day02 = [pt1, pt2];
 

@@ -1,13 +1,9 @@
-// Import types
-import ObjectValues from './ObjectValues';
-
-// Import constants
-import INPUT_FILE from '../constants/INPUT_FILE';
-
+// Import helper
+import inputFiles from '../helpers/inputFiles';
 /**
- * Enum style type to keep track of input files.
+ * typeof input filenames.
  * @author Benedikt Arnarsson
  */
-type InputFile = ObjectValues<typeof INPUT_FILE>;
+type InputFile = ReturnType<typeof inputFiles>[number];
 
 export default InputFile;
