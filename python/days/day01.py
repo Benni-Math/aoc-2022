@@ -1,5 +1,8 @@
-"""Day 1 of AOC 2022"""
+"""Day 1 of AOC 2022: Calorie Counting"""
+
 from util import parse_int
+
+# ----------- Public Functions ----------- #
 
 def day01_pt1(filename: str) -> int:
     """Get the highest calorie count"""
@@ -23,6 +26,7 @@ def day01_pt2(filename: str) -> int:
                 for elf in food_list.split('\n\n')]
         )[-3:]
     )
+
 
 if __name__ == '__main__':
     INPUT_FILENAME = '../inputs/01.txt'

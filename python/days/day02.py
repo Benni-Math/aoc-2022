@@ -1,25 +1,60 @@
-"""Day 1 of AOC 2022"""
+"""Day 2 of AOC 2022: Rock Paper Scissors"""
+
+# -------------- Public Functions ------------- #
 
 def day02_pt1(filename: str) -> int:
-    """Get the total score from following the strategy"""
+    """Day 2, part 1: Assuming the strategy, what score do you get?"""
     with open(filename, 'r', encoding='utf-8') as games_file:
-        games = games_file.read()
-        return sum(map(_parse_rock_paper_scissors, games.split('\n')[:-1]))
+        games = games_file.read().split('\n')[:-1]
+
+    return sum(map(_score_rps_wrong, games))
 
 def day02_pt2(filename: str) -> int:
-    """Day 2, part 2"""
-    print(f'{filename} pt2 to be implemented')
-    return 0
+    """Day 2, part 2: Given the elf's strategy, what score do you get?"""
+    with open(filename, 'r', encoding='utf-8') as games_file:
+        games = games_file.read().split('\n')[:-1]
 
-def _parse_rock_paper_scissors(game: str) -> int:
-    # FIXME: first column is what your opponent plays!!
-    player_1, player_2, *_ = map(ord, game.split(' '))
+    return sum(map(_score_rps_right, games))
 
-    total_pts = player_2 - 87
-    player_2 -= 23
-    if player_1 == player_2:
-        total_pts += 3
-    elif (player_2 - player_1) % 3 == 1:
-        total_pts += 6
 
-    return total_pts
+# ----------------- Constants ----------------- #
+
+_wrong_score = {
+    "A X": 4,
+    "A Y": 8,
+    "A Z": 3,
+    "B X": 1,
+    "B Y": 5,
+    "B Z": 9,
+    "C X": 7,
+    "C Y": 2,
+    "C Z": 6,
+}
+
+_right_score = {
+    "A X": 3,
+    "A Y": 4,
+    "A Z": 8,
+    "B X": 1,
+    "B Y": 5,
+    "B Z": 9,
+    "C X": 2,
+    "C Y": 6,
+    "C Z": 7,
+}
+
+
+# ------------- Private Functions ------------- #
+
+def _score_rps_wrong(game: str) -> int:
+    return _wrong_score.get(game, 0)
+
+def _score_rps_right(game: str) -> int:
+    return _right_score.get(game, 0)
+
+# ------------------- Script ------------------ #
+
+if __name__ == '__main__':
+    INPUT_FILENAME = '../inputs/02.txt'
+    print(f'Day 2, pt1: {day02_pt1(INPUT_FILENAME)}')
+    print(f'Day 2, pt2: {day02_pt2(INPUT_FILENAME)}')
