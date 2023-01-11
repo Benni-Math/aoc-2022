@@ -1,4 +1,8 @@
 """All solutions for the AOC days"""
+# Import helpers
+import os
+
+# Import days
 from .day01 import *
 from .day02 import *
 from .day03 import *
@@ -53,3 +57,19 @@ day_solutions = [
     [day24_pt1, day24_pt2],
     [day25_pt1, day25_pt2],
 ]
+
+
+# Constants
+INPUT_DIR = '../inputs'
+
+def main():
+    """Runs all of the AOC days solutions"""
+    input_files = sorted(os.listdir(INPUT_DIR))
+    for day, (file_name, parts) in enumerate(zip(input_files, day_solutions)):
+        input_filename = f'{INPUT_DIR}/{file_name}'
+        print(f'Day {day+1}:')
+        for part, soln_func in enumerate(parts):
+            answer = soln_func(input_filename)
+
+            print(f'  Part {part+1}: {answer}')
+        print()

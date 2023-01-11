@@ -1,21 +1,6 @@
-# AOC
+# Elixir Solutions to AoC 2022
 
-**TODO: Add description**
-
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `aoc` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:aoc, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/aoc>.
+To run, use `mix run aoc-2022.exs`, or compile with 
+`mix escript.build` and then run with `target/aoc-2022`.
+Clean up with `mix clean` and then delete `target/`.
 

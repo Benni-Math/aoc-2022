@@ -1,9 +1,5 @@
-# Warning:
+# TypeScript Solutions to AoC 2022
 
-This set of code is different from Rust and Python,
-in that you need to manually add the input file names.
-
-Go to [`INPUT_FILE`](src/constants/INPUT_FILE.ts) and
-put the names of the input files, in order.
-
-The rest of the types and constants will update accordingly.
+To run, use `npm run start:dev`. You can also compile with
+`npm run build` and then run with `npm run start:release`.
+Clean up compiled files with `npm run clean`.

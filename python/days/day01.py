@@ -1,7 +1,5 @@
 """Day 1 of AOC 2022: Calorie Counting"""
 
-from util import parse_int
-
 # ----------- Public Functions ----------- #
 
 def day01_pt1(filename: str) -> int:
@@ -11,7 +9,7 @@ def day01_pt1(filename: str) -> int:
 
     return max([
         sum(
-            map(parse_int, elf.split('\n'))
+            map(_parse_int, elf.split('\n'))
         ) for elf in food_list.split('\n\n')
     ])
 
@@ -22,11 +20,19 @@ def day01_pt2(filename: str) -> int:
 
     return sum(
         sorted(
-            [sum(map(parse_int, elf.split('\n')))
+            [sum(map(_parse_int, elf.split('\n')))
                 for elf in food_list.split('\n\n')]
         )[-3:]
     )
 
+# ---------- Private Functions ----------- #
+
+def _parse_int(num: str) -> int:
+    """Helper for parsing integers safely - returns 0 if ValueError"""
+    try:
+        return int(num, 10)
+    except ValueError:
+        return 0
 
 if __name__ == '__main__':
     INPUT_FILENAME = '../inputs/01.txt'

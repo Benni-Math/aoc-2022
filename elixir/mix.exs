@@ -3,7 +3,7 @@ defmodule AOC.MixProject do
 
   def project do
     [
-    app: :aoc,
+    app: :"aoc-2022",
     version: "0.1.0",
     elixir: "~> 1.14",
     start_permanent: Mix.env() == :prod,
@@ -31,7 +31,7 @@ defmodule AOC.MixProject do
   defp escript do
     [
       main_module: Days,
-      path: "target/aoc",
+      path: "target/aoc-2022",
     ]
   end
 end

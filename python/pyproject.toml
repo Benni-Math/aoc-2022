@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "python-aoc-2022"
+version = "0.1.0"
+description = "Python solutions to AoC 2022"
+authors = ["Benni-Math <benediktjens.arnarsson@gmail.com>"]
+readme = "README.md"
+packages = [{include = "days"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.poetry.scripts]
+main = "days:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
