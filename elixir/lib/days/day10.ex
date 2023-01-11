@@ -1,6 +1,6 @@
-defmodule Days.Day09 do
+defmodule Days.Day10 do
   @moduledoc """
-  Solutions to AoC 2022 Day 9.
+  Solutions to AoC 2022 Day 10.
   """
 
   @spec pt1(binary()) :: integer()
@@ -11,11 +11,11 @@ defmodule Days.Day09 do
 
   ## Examples
 
-    iex> Days.Day09.pt1(day09_input) # filename
-    <Solution to Day 9, part 1>
+    iex> Days.Day10.pt1(day10_input) # filename
+    <Solution to Day 10, part 1>
 
   """
-  def pt1(file_name) do
+  def pt1(_file_name) do
     0
   end
 
@@ -24,11 +24,11 @@ defmodule Days.Day09 do
 
   ## Examples
 
-    iex> Days.Day09.pt2(day09_input) # filename
-    <Solution to Day 9, part 2>
+    iex> Days.Day10.pt2(day10_input) # filename
+    <Solution to Day 10, part 2>
 
   """
-  def pt2(file_name) do
+  def pt2(_file_name) do
     0
   end
 

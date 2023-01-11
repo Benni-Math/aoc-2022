@@ -48,6 +48,6 @@ defmodule Days.Day06 do
       |> Enum.with_index()
       |> Enum.find(fn {clist, _i} -> Enum.uniq(clist) == clist end)
       |> elem(1)
-      |> (&(&1 + marker_size)).()
+      |> then(&(&1 + marker_size))
   end
 end

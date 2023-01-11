@@ -70,12 +70,12 @@ defmodule Days.Day05 do
     str_list = move_str |> String.split(" ")
     str_list
       |> Enum.take_every(2)
-      |> (fn list ->
+      |> then(fn list ->
           [
             Enum.map(list, &String.to_atom/1),
             Enum.map(str_list -- list, &String.to_integer/1),
           ]
-        end).()
+        end)
       |> Enum.zip()
       |> Map.new()
   end
@@ -136,7 +136,6 @@ defmodule Days.Day05 do
   end
 
   defp exec_move_9001(move, crate_stacks) do
-    # TODO:
     %{
       move: num_to_move,
       from: from,

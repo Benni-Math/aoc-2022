@@ -17,7 +17,7 @@ defmodule Days.Day04 do
   @spec range_overlap?({range_map(), range_map()}) :: boolean()
 
   @doc """
-  Part 1: ???
+  Part 1: How many elves' cleanup areas are contained in each other?
 
   ## Examples
 
@@ -39,7 +39,7 @@ defmodule Days.Day04 do
   end
 
   @doc """
-  Part 2: ???
+  Part 2: How many elves' cleanup areas overlap?
 
   ## Examples
 

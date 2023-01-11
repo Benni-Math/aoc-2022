@@ -1,6 +1,6 @@
-defmodule Days.Day08 do
+defmodule Days.Day18 do
   @moduledoc """
-  Solutions to AoC 2022 Day 8: Treetop Tree House.
+  Solutions to AoC 2022 Day 18: Treetop Tree House.
   """
 
   # Public Functions
@@ -12,8 +12,8 @@ defmodule Days.Day08 do
 
   ## Examples
 
-    iex> Days.Day08.pt1(day08_input) # filename
-    <Solution to Day 8, part 1>
+    iex> Days.Day18.pt1(day18_input) # filename
+    <Solution to Day 18, part 1>
 
   """
   def pt1(_file_name) do
@@ -25,8 +25,8 @@ defmodule Days.Day08 do
 
   ## Examples
 
-    iex> Days.Day08.pt2(day08_input) # filename
-    <Solution to Day 8, part 2>
+    iex> Days.Day18.pt2(day18_input) # filename
+    <Solution to Day 18, part 2>
 
   """
   def pt2(_file_name) do

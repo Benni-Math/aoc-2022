@@ -58,9 +58,9 @@ defmodule Days.Day07 do
       |> Stream.map(&(String.trim(&1, "\n")))
       |> Enum.reduce(fs, &parse_line/2)
       |> Map.delete(:curr_dir)
-      |> (fn dirs -> {dirs, dirs["/"]} end).()
-      |> (fn {dirs, total_size} -> {Map.values(dirs),  total_size - 40_000_000} end).()
-      |> (fn {sizes, space_to_free} -> Enum.filter(sizes, &(&1 >= space_to_free)) end).()
+      |> then(fn dirs -> {dirs, dirs["/"]} end)
+      |> then(fn {dirs, total_size} -> {Map.values(dirs),  total_size - 40_000_000} end)
+      |> then(fn {sizes, space_to_free} -> Enum.filter(sizes, &(&1 >= space_to_free)) end)
       |> Enum.min()
   end
 

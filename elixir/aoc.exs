@@ -1,1 +1,1 @@
-Days.run_all()
+Days.main()

@@ -31,10 +31,9 @@ defmodule Days.Day03 do
   end
 
   defp prio(item) do
-    # TODO:
     cond do
-      item > 96 and item < 123 -> item - 96
-      item > 64 and item < 91 -> item - 38
+      item in 97..122 -> item - 96
+      item in 65..90 -> item - 38
       true -> raise "invalid item: #{item}"
     end
   end
@@ -49,7 +48,6 @@ defmodule Days.Day03 do
 
   """
   def pt2(file_name) do
-    # TODO:
     score = fn [r1, r2, r3] -> prio(hd(list_overlap(r1, r2, r3))) end
     File.stream!(file_name)
       |> Stream.map(&String.trim/1)
@@ -66,9 +64,9 @@ defmodule Days.Day03 do
       # split the rucksack in half
       # should maybe directly split string/binary
       # with String.split_at/2 or binary_part/3
-      |> split_list
+      |> split_list()
       |> then(fn {l1, l2} -> list_overlap(l1, l2) end)
-      |> hd
+      |> hd()
   end
 
   defp split_list(list) do
