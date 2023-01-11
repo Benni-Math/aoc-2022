@@ -5,7 +5,8 @@
   "main": "src/aoc.ts",
   "scripts": {
     "build": "rm -rf ./target/ && tsc --project ./tsconfig.json",
-    "clean": "rm -rf ./target/*",
+    "clean": "rm -rf ./target/",
+    "clean.deps": "rm -rf ./node_modules",
     "start.release": "node target/aoc-2022",
     "start.dev": "ts-node ./src/aoc-2022.ts"
   },

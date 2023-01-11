@@ -14,7 +14,7 @@ python = "^3.11"
 aoc-2022 = 'scripts:crc_all'
 compile-all = 'scripts:compile_all'
 run-all = 'scripts:run_all'
-clean_all = 'scripts:clean_all'
+clean-all = 'scripts:clean_all'
 
 [build-system]
 requires = ["poetry-core"]

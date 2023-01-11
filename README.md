@@ -1,5 +1,7 @@
 # Advent of Code 2022
 
+**Warning**: Only done with the first 7 days so far.
+
 I'll be trying to solve some of the AOC 2022 problems.
 
 To run, get you're AoC 2022 inputs and place them in a directory name `inputs/` in the root of this project. The inputs must be named '01.txt', '02.txt', and so on until '25.txt'. Then, just run `poetry run aoc-2022` in the command line and the outputs for each programming language will be created in the `outputs/` directory.
@@ -7,6 +9,11 @@ To run, get you're AoC 2022 inputs and place them in a directory name `inputs/` 
 (You might need to run `poetry install`).
 
 For details on running specific languages, go to their directories.
+
+## Up Next
+
+ - Incorporate C solutions
+ - Upgrade `scripts` (split into modules and add individual run scripts)
 
 ## Requirements
 

@@ -37,6 +37,14 @@ def compile_all():
     if not os.path.exists(OUTPUT_DIR):
         os.makedirs(OUTPUT_DIR)
 
+    if not os.path.exists('typescript/node_modules'):
+        subprocess.Popen(
+            ['npm', 'install'],
+            cwd='typescript',
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.STDOUT,
+        ).wait()
+
     my_env = os.environ.copy()
     my_env['MIX_ENV'] = 'release'
     print('Compiling...')
@@ -147,7 +155,7 @@ def crc_all():
     """Compile, run, and clean all AoC directories."""
     compile_all()   # Comment this out if everything is already compiled
     run_all()
-    clean_all()     # Comment this out if you don't want it to clean
+    # clean_all()     # Comment this out if you don't want it to clean
 
 
 if __name__ == '__main__':
