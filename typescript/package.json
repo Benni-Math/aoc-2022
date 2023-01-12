@@ -4,11 +4,12 @@
   "description": "Advent of Code 2022 in TypeScript",
   "main": "src/aoc.ts",
   "scripts": {
-    "build": "rm -rf ./target/ && tsc --project ./tsconfig.json",
-    "clean": "rm -rf ./target/",
-    "clean.deps": "rm -rf ./node_modules",
+    "build": "npm install && rm -rf ./target/ && tsc --project ./tsconfig.json",
+    "clean": "rm -rf ./target/ && rm -rf ./node_modules/",
+    "clean.deps": "rm -rf ./node_modules/",
+    "clean.target": "rm -rf ./target/",
     "start.release": "node target/aoc-2022",
-    "start.dev": "ts-node ./src/aoc-2022.ts"
+    "start.dev": "npm install && ts-node ./src/aoc-2022.ts"
   },
   "author": "Ben",
   "license": "ISC",

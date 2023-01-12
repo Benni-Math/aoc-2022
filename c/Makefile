@@ -1,6 +1,6 @@
 SRC_DIR := src
-OBJ_DIR := target/obj
-BIN_DIR := target/bin
+OBJ_DIR := obj
+BIN_DIR := target
 
 EXE := $(BIN_DIR)/aoc-2022
 SRC := $(wildcard $(SRC_DIR)/*.c)

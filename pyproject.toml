@@ -11,10 +11,12 @@ packages = [{include = "scripts"}]
 python = "^3.11"
 
 [tool.poetry.scripts]
-aoc-2022 = 'scripts:crc_all'
-compile-all = 'scripts:compile_all'
-run-all = 'scripts:run_all'
-clean-all = 'scripts:clean_all'
+aoc-2022 = "scripts.run:run_all"
+aoc-only = "scripts.run:run_one"
+compile-all = "scripts.comp:compile_all"
+compile-only = "scripts.comp:compile_one"
+clean-all = "scripts.clean:clean_all"
+clean-only = "scripts.clean:clean_one"
 
 [build-system]
 requires = ["poetry-core"]
