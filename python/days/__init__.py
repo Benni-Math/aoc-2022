@@ -59,6 +59,8 @@ day_solutions = [
 ]
 
 
+# FIXME: this and other uses of '../inputs' and '../outputs'
+# use the scripts.CONFIG as a single source of truth
 # Constants
 INPUT_DIR = '../inputs'
 

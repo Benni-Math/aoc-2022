@@ -1,0 +1,22 @@
+{
+    "python": {
+        "release": "poetry run main",
+        "dev": "poetry run main"
+    },
+    "typescript": {
+        "release": "npm run start.release",
+        "dev": "npm run start.dev"
+    },
+    "rust": {
+        "release": "target/release/aoc-2022",
+        "dev": "cargo run"
+    },
+    "elixir": {
+        "release": "target/aoc-2022",
+        "dev": "mix run aoc-2022.exs"
+    },
+    "c": {
+        "release": "target/aoc-2022",
+        "dev": "make && target/aoc-2022"
+    }
+}

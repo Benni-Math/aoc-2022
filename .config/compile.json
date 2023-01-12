@@ -1,0 +1,6 @@
+{
+    "typescript": "npm run build",
+    "rust": "cargo build -r",
+    "elixir": "mix escript.build",
+    "c": "make"
+}

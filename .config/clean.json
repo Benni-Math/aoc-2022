@@ -1,0 +1,6 @@
+{
+  "typescript": "npm run clean",
+  "rust": "cargo clean",
+  "elixir": "mix clean",
+  "c": "make clean"
+}
