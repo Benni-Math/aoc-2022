@@ -2,6 +2,7 @@
 
 import json
 import os
+import stat
 
 CONFIG_DIR = '.config'
 OUTPUT_DIR = 'outputs'
@@ -32,3 +33,12 @@ if not os.path.exists(OUTPUT_DIR):
 if not os.path.exists(INPUT_DIR):
     msg = 'Please create an `inputs/` directory and put your AoC input files there.'
     raise Exception(msg)
+
+# FIXME:
+# Doing this manually isn't great
+# Maybe just automatically make all *.sh files executable?
+st = os.stat('c/aoc.sh')
+make_exec = st.st_mode | stat.S_IEXEC
+if make_exec == st.st_mode:
+    os.chmod('c/aoc.sh', make_exec)
+

@@ -10,6 +10,8 @@ __pycache__/
 # C
 obj/
 compile_flags.txt
+*.so
+*.dll
 
 # Fsharp
 # Build results
