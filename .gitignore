@@ -9,6 +9,7 @@ __pycache__/
 
 # C
 obj/
+compile_flags.txt
 
 # AOC in/out
 inputs/
