@@ -30,4 +30,5 @@ if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
 if not os.path.exists(INPUT_DIR):
-    raise Exception('Please create an `inputs/` directory and put your AoC input files there.')
+    msg = 'Please create an `inputs/` directory and put your AoC input files there.'
+    raise Exception(msg)

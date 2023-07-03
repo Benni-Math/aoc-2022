@@ -23,7 +23,8 @@ def run_one(
             if sys.argv[1] in CONFIG['run']:
                 cwd = sys.argv[1]
             else:
-                raise NotImplementedError(f'This language ({sys.argv[1]}) is not implemented!')
+                msg = f'This language ({sys.argv[1]}) is not implemented!'
+                raise NotImplementedError(msg)
         except IndexError as exc:
             raise Exception('Please pass in a language to run.') from exc
 
